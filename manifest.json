@@ -1,0 +1,16 @@
+{
+  "id": "max",
+  "name": "MAX",
+  "version": "0.1.0-alpha",
+  "api": 3,
+  "exec": "max",
+  "permissions": [
+    { "name": "network", "reason": { "en": "Downloads MAX from download.max.ru and connects to MAX.", "ru": "Скачивает MAX с download.max.ru и подключается к MAX." } },
+    "wayland.window",
+    "background",
+    { "name": "notifications", "optional": true, "reason": { "en": "Shows new messages.", "ru": "Показывает новые сообщения." } },
+    { "name": "wayland.clipboard", "optional": true, "reason": { "en": "Copy and paste in MAX.", "ru": "Копирование и вставка в MAX." } }
+  ],
+  "requires": [{ "name": "display.wayland@1", "install": "siakinnik/facet-wayland" }],
+  "tile": { "icon": "chat" }
+}

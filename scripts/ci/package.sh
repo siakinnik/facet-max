@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Packs a release archive facet-max-<version>-linux-<arch>.tar.gz whose top
+# directory is the plugin directory (manifest.json, executable, runtime/), as
+# expected by facet-core's `get.sh --plugin`. MAX itself is not included: the
+# module downloads it from download.max.ru on the device.
+#   scripts/ci/package.sh <plugin-dir> <version> <arch> <out-dir>
+set -euo pipefail
+dir="$1" version="$2" arch="$3" out="$4"
+root="$(cd "$(dirname "$0")/../.." && pwd)"
+stage="$(mktemp -d)/max"
+mkdir -p "$stage"
+install -m755 "$dir/max" "$stage/max"
+install -m644 "$dir/manifest.json" "$stage/manifest.json"
+cp -a "$dir/runtime" "$stage/runtime"
+for f in LICENSE README.md; do
+    [[ -f "$root/$f" ]] && install -m644 "$root/$f" "$stage/$f"
+done
+mkdir -p "$out"
+name="facet-max-$version-linux-$arch.tar.gz"
+tar -C "$(dirname "$stage")" -czf "$out/$name" max
+echo "$out/$name"
