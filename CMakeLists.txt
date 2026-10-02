@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.18)
-project(facet-max VERSION 0.1.0 LANGUAGES C CXX)
+project(facet-max VERSION 0.1.1 LANGUAGES C CXX)
 set(MAX_VERSION_SUFFIX "alpha")  # pre-release tag; empty for final releases; keep manifest.json in sync
 
 set(CMAKE_CXX_STANDARD 17)

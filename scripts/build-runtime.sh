@@ -33,6 +33,8 @@ for deb in "$work"/debs/*.deb; do dpkg-deb -x "$deb" "$work/tree"; done
 rm -rf "$out" && mkdir -p "$out"/{lib,bin,fonts,share,etc,licenses,plugins/platforms}
 for d in "$work/tree/lib/x86_64-linux-gnu" "$work/tree/usr/lib/x86_64-linux-gnu"; do
     [[ -d "$d" ]] && find "$d" -maxdepth 1 -name '*.so*' -exec cp -a {} "$out/lib/" \;
+    # PulseAudio keeps its private libpulsecommon in a subdirectory.
+    [[ -d "$d/pulseaudio" ]] && find "$d/pulseaudio" -maxdepth 1 -name '*.so*' -exec cp -a {} "$out/lib/" \;
 done
 cp "$work/tree/usr/bin/dbus-daemon" "$out/bin/"
 cp "$work"/tree/usr/share/fonts/truetype/dejavu/*.ttf "$out/fonts/"
