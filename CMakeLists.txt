@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.18)
-project(facet-max VERSION 0.1.1 LANGUAGES C CXX)
+project(facet-max VERSION 0.1.2 LANGUAGES C CXX)
 set(MAX_VERSION_SUFFIX "alpha")  # pre-release tag; empty for final releases; keep manifest.json in sync
 
 set(CMAKE_CXX_STANDARD 17)
@@ -19,9 +19,9 @@ endif()
 
 # The plugin SDK lives in facet-core: a local checkout next to this project
 # (or FACET_CORE_DIR) is used when present, otherwise it is downloaded.
-# Lent surfaces and capability endpoints need facet-core 0.6.
+# Lent surfaces and capability endpoints need facet-core 0.6, the OpenGL package 0.7.
 set(FACET_CORE_DIR "" CACHE PATH "facet-core checkout providing the SDK (default: ../facet-core, else download)")
-set(FACET_CORE_REF "v0.6.0-alpha" CACHE STRING "facet-core git ref to download the SDK from")
+set(FACET_CORE_REF "v0.7.0-alpha" CACHE STRING "facet-core git ref to download the SDK from")
 if(NOT FACET_CORE_DIR AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../facet-core/sdk/CMakeLists.txt")
     set(FACET_CORE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../facet-core")
 endif()

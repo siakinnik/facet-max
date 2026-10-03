@@ -19,6 +19,9 @@ struct SessionPaths {
     std::string wayland;  // the compositor's socket
     std::string bus;      // where our session bus listens
     std::string locale;   // Facet's UI language ("ru", "en")
+    std::string gl;       // Facet's OpenGL package (Mesa), "" if not available
+    // Diagnostics: KEY=VALUE lines that override MAX's environment, "" = none.
+    std::string env_override;
 };
 
 class Session {

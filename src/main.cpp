@@ -189,6 +189,8 @@ private:
         p.wayland = socket;
         p.bus = "/tmp/facet-max-bus";
         p.locale = plugin_.catalog().language();
+        p.gl = plugin_.gl_dir();
+        if (exists(plugin_.data_dir() + "/env.override")) p.env_override = plugin_.data_dir() + "/env.override";
         std::string err;
         if (!session_.start(p, err)) {
             Plugin::log("max: %s", err.c_str());

@@ -1,7 +1,7 @@
 {
   "id": "max",
   "name": "MAX",
-  "version": "0.1.1-alpha",
+  "version": "0.1.2-alpha",
   "api": 3,
   "exec": "max",
   "permissions": [
@@ -9,7 +9,8 @@
     "wayland.window",
     "background",
     { "name": "notifications", "optional": true, "reason": { "en": "Shows new messages.", "ru": "Показывает новые сообщения." } },
-    { "name": "wayland.clipboard", "optional": true, "reason": { "en": "Copy and paste in MAX.", "ru": "Копирование и вставка в MAX." } }
+    { "name": "wayland.clipboard", "optional": true, "reason": { "en": "Copy and paste in MAX.", "ru": "Копирование и вставка в MAX." } },
+    { "name": "gpu", "optional": true, "reason": { "en": "Draws MAX with OpenGL (from Facet's OpenGL drivers, Settings > Graphics).", "ru": "Рисует MAX через OpenGL (драйверы OpenGL Facet, «Настройки > Графика»)." } }
   ],
   "requires": [{ "name": "display.wayland@1", "install": "siakinnik/facet-wayland" }],
   "tile": { "icon": "chat" }
