@@ -115,3 +115,21 @@ src/main.cpp      plugin glue: screen, tile, notifications, updates
 shim/shim.c       preload: Qt platform "xcb" -> "wayland"
 RUNTIME           what the runtime contains (Ubuntu packages, Qt version)
 ```
+
+## Licenses
+
+- This project: GPL-3.0 (LICENSE); its sources are this repository at each
+  release tag.
+- The release executables are static: glibc (LGPL-2.1-or-later), the GCC runtime, OpenSSL (Apache-2.0) and liblzma are built into them. Their
+  licenses are in every release archive under `licenses/` (the packages they
+  come from, with exact versions, in `licenses/STATIC`, and the full texts in
+  `licenses/common-licenses/`).
+- `runtime/` holds libraries, `dbus-daemon` and fonts from Ubuntu 22.04,
+  unchanged, each with its license in `runtime/licenses/` (exact versions in
+  `runtime/licenses/SOURCES`), and the unmodified Qt Wayland platform plugin
+  (LGPL-3, see `runtime/licenses/qt.txt`).
+- MAX itself is not part of this module: it is downloaded from its publisher
+  on the device.
+- Every release has `facet-max-<version>-sources.tar` with the sources of all of
+  that, the runtime's source packages and Qt's qtbase sources. GCC's runtime (libstdc++, libgcc) is under the GCC Runtime
+  Library Exception, which asks for no sources.

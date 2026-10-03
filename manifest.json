@@ -1,7 +1,7 @@
 {
   "id": "max",
   "name": "MAX",
-  "version": "0.1.2-alpha",
+  "version": "0.1.3-alpha",
   "api": 3,
   "exec": "max",
   "permissions": [

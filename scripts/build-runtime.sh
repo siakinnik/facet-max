@@ -41,6 +41,17 @@ cp "$work"/tree/usr/share/fonts/truetype/dejavu/*.ttf "$out/fonts/"
 for doc in "$work"/tree/usr/share/doc/*/copyright; do
     cp "$doc" "$out/licenses/$(basename "$(dirname "$doc")").copyright"
 done
+# The copyright files refer to the full license texts by path; they come along.
+cp -rL /usr/share/common-licenses "$out/licenses/common-licenses" 2>/dev/null ||
+    docker run --rm -v "$out/licenses:/w" ubuntu:22.04 cp -rL /usr/share/common-licenses /w/
+# Binary package, version, source package and its version (scripts/ci/sources.sh).
+for deb in "$work"/debs/*.deb; do
+    pkg="$(dpkg-deb -f "$deb" Package)" ver="$(dpkg-deb -f "$deb" Version)" src="$(dpkg-deb -f "$deb" Source)"
+    srcname="${src%% *}" srcver="$ver"
+    [[ -z "$srcname" ]] && srcname="$pkg"
+    [[ "$src" == *"("*")"* ]] && srcver="${src#*(}" && srcver="${srcver%)*}"
+    echo "$pkg $ver $srcname $srcver"
+done | sort > "$out/licenses/SOURCES"
 
 echo "== Qt $qt Wayland platform plugin"
 python3 -m venv "$work/venv"
@@ -49,8 +60,12 @@ python3 -m venv "$work/venv"
 cp "$work/qt/$qt/gcc_64/plugins/platforms/libqwayland.so" "$out/plugins/platforms/"
 cat > "$out/licenses/qt.txt" <<EOF
 plugins/platforms/libqwayland.so is the unmodified Wayland platform plugin of
-the official Qt $qt binaries (The Qt Company), licensed under the GNU LGPL v3.
-Source: https://download.qt.io/official_releases/qt/
+the official Qt $qt binaries (The Qt Company), licensed under the GNU LGPL v3
+(common-licenses/LGPL-3, which builds on common-licenses/GPL-3). It is loaded
+at run time and can be replaced by any build of the same Qt version.
+Its source (qtbase-everywhere-src-$qt.tar.xz) is in the module's
+facet-max-<version>-sources.tar next to each release, and at
+https://download.qt.io/official_releases/qt/${qt%.*}/$qt/submodules/
 EOF
 
 cat > "$out/share/dbus-session.conf" <<'EOF'
